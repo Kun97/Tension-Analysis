@@ -66,6 +66,14 @@ class Process:
             else:
                 ans = temp_list[i + 1].replace(temp_list[i + 1].split()[0], '').strip()
 
-            self.ques_ans.append((ques, ans))
+            timestamp_ques = re.findall('..:..:..', ques)
+            timestamp_ans = re.findall('..:..:..', ans)
+            ques = re.sub(' ..:..:..', '', ques)
+            ans = re.sub(' ..:..:..', '', ans)
+            timestamp_ques = ' '.join([str(elem) for elem in timestamp_ques])
+            timestamp_ans = ' '.join([str(elem) for elem in timestamp_ans])
+            
+
+            self.ques_ans.append((ques, ans, timestamp_ques, timestamp_ans))
 
         return self.ques_ans

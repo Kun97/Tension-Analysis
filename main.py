@@ -111,14 +111,14 @@ def IsBoosting(s):
 def tension_analysis(ques_ans):
     with open(sys.argv[4], mode='w') as f:
         writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        writer.writerow(['Content', 'Role', 'Predicted Label'])
+        writer.writerow(['Content', 'Role', 'Predicted Label', 'Timestamps'])
 
         stats = ques_statistics(ques_ans)
         for pair in ques_ans:
             ques = pair[0].lower()
             ans = pair[1].lower()
             sentences = sent_tokenize(ans)
-            writer.writerow([pair[0], 'Interviewer', "-"])
+            writer.writerow([pair[0], 'Interviewer', "-", pair[2]])
             isNegativeEmotion = False
             isHedging = False
             isQuestion = False
@@ -167,9 +167,9 @@ def tension_analysis(ques_ans):
                 isOutlier = True
 
             if (isNegativeEmotion and isHedging) or (isBoosting and isHedging) or (cuePresent and isHedging) or isQuestion or isOutlier:
-                writer.writerow([pair[1], 'Interviewee', "Tension"])
+                writer.writerow([pair[1], 'Interviewee', "Tension", pair[3]])
             else:
-                writer.writerow([pair[1], 'Interviewee', "No Tension"])
+                writer.writerow([pair[1], 'Interviewee', "No Tension", pair[3]])
 
 
 if __name__ == "__main__":

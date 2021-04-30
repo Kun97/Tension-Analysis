@@ -72,6 +72,7 @@ def load_lexicons():
 
 
     # BingLiu (2004) and MPQA (2005)
+    # postive or negative
     with open('lexicons/BingLiu.txt', 'r') as f:
         for line in f:
             splitted = line.strip().split('\t')
